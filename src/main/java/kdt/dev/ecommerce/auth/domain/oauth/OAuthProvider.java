@@ -18,7 +18,7 @@ public enum OAuthProvider {
 
 	public static OAuthProvider from(String provider) {
 		return Arrays.stream(values())
-			.filter(oauthType -> oauthType.getProvider().equals(provider))
+			.filter(oauthType -> oauthType.getProvider().equalsIgnoreCase(provider))
 			.findFirst()
 			.orElseThrow(() -> new CommerceException(AuthError.NOT_EXIST_OAUTH_TYPE));
 	}
