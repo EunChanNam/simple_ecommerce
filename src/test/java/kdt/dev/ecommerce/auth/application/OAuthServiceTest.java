@@ -15,12 +15,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import kdt.dev.ecommerce.auth.application.dto.OAuthLoginRequest;
 import kdt.dev.ecommerce.auth.domain.AuthTokenManager;
 import kdt.dev.ecommerce.auth.domain.oauth.OAuthConnector;
 import kdt.dev.ecommerce.auth.domain.oauth.OAuthUriGenerator;
 import kdt.dev.ecommerce.auth.domain.oauth.model.AuthToken;
 import kdt.dev.ecommerce.auth.domain.oauth.model.OAuthTokenInfo;
 import kdt.dev.ecommerce.auth.domain.oauth.model.OAuthUserInfo;
+import kdt.dev.ecommerce.auth.fixture.AuthFixture;
 import kdt.dev.ecommerce.auth.infrastructure.google.model.GoogleTokenInfo;
 import kdt.dev.ecommerce.auth.infrastructure.google.model.GoogleUserInfo;
 import kdt.dev.ecommerce.user.domain.User;
@@ -41,13 +43,14 @@ class OAuthServiceTest {
 	@Mock
 	private UserRepository userRepository;
 
-	private OAuthUserInfo mockingForLogin(String provider, String code, String state) {
+	private OAuthUserInfo mockingForLogin(String provider, OAuthLoginRequest request) {
 		OAuthConnector oAuthConnector = Mockito.mock(OAuthConnector.class);
 		given(oAuthFactory.getOAuthConnector(provider))
 			.willReturn(oAuthConnector);
 
 		OAuthTokenInfo tokenInfo = new GoogleTokenInfo("type", "access-token", "refresh-token", 1000);
-		given(oAuthConnector.fetchToken(code, state)).willReturn(tokenInfo);
+		given(oAuthConnector.fetchToken(request.code(), request.state()))
+			.willReturn(tokenInfo);
 
 		OAuthUserInfo userInfo = new GoogleUserInfo("sub", "helloName", "email");
 		given(oAuthConnector.fetchUserInfo(tokenInfo.accessToken())).willReturn(userInfo);
@@ -86,17 +89,16 @@ class OAuthServiceTest {
 		void success1() {
 			//given
 			String provider = "google";
-			String code = "code";
-			String state = "state";
+			OAuthLoginRequest request = AuthFixture.getOAuthLoginRequest();
 
-			OAuthUserInfo userInfo = mockingForLogin(provider, code, state);
+			OAuthUserInfo userInfo = mockingForLogin(provider, request);
 
 			User user = UserFixture.getUser(1L);
 			given(userRepository.findByOauthId(userInfo.oauthId()))
 				.willReturn(Optional.of(user));
 
 			//when
-			URI actual = oAuthService.login(provider, code, state);
+			URI actual = oAuthService.login(provider, request);
 
 			//then
 			assertThat(actual).isNotNull();
@@ -108,10 +110,9 @@ class OAuthServiceTest {
 		void success2() {
 			//given
 			String provider = "google";
-			String code = "code";
-			String state = "state";
+			OAuthLoginRequest request = AuthFixture.getOAuthLoginRequest();
 
-			OAuthUserInfo userInfo = mockingForLogin(provider, code, state);
+			OAuthUserInfo userInfo = mockingForLogin(provider, request);
 
 			given(userRepository.findByOauthId(userInfo.oauthId()))
 				.willReturn(Optional.empty());
@@ -120,7 +121,7 @@ class OAuthServiceTest {
 			given(userRepository.save(any(User.class))).willReturn(user);
 
 			//when
-			URI actual = oAuthService.login(provider, code, state);
+			URI actual = oAuthService.login(provider, request);
 
 			//then
 			assertThat(actual).isNotNull();

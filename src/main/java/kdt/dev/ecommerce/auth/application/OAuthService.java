@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import kdt.dev.ecommerce.auth.application.dto.AuthTokenResponse;
+import kdt.dev.ecommerce.auth.application.dto.OAuthLoginRequest;
 import kdt.dev.ecommerce.auth.domain.AuthTokenManager;
 import kdt.dev.ecommerce.auth.domain.oauth.OAuthConnector;
 import kdt.dev.ecommerce.auth.domain.oauth.model.AuthToken;
@@ -38,7 +39,7 @@ public class OAuthService {
 		return userRepository.save(newUser);
 	}
 
-	private URI generateLoginSuccessRedirectUri(final AuthTokenResponse authTokenResponse) {
+	private URI generateLoginSuccessRedirectUri(AuthTokenResponse authTokenResponse) {
 		String loginSuccessRedirectUri = "http://localhost:8080/view/login-success";
 		return UriComponentsBuilder
 			.fromUriString(loginSuccessRedirectUri)
@@ -48,21 +49,17 @@ public class OAuthService {
 			.toUri();
 	}
 
-	public URI getAuthorizationUri(final String provider) {
+	public URI getAuthorizationUri(String provider) {
 		return oauthFactory
 			.getOAuthUriGenerator(provider)
 			.generate();
 	}
 
 	@Transactional
-	public URI login(
-		final String provider,
-		final String code,
-		final String state
-	) {
+	public URI login(String provider, OAuthLoginRequest request) {
 		OAuthConnector connector = oauthFactory.getOAuthConnector(provider);
 
-		OAuthTokenInfo oauthToken = connector.fetchToken(code, state);
+		OAuthTokenInfo oauthToken = connector.fetchToken(request.code(), request.state());
 		OAuthUserInfo userInfo = connector.fetchUserInfo(oauthToken.accessToken());
 
 		User user = saveOrUpdateMember(userInfo);
