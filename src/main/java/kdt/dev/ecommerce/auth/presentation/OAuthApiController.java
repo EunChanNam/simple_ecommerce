@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,14 +20,13 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/oauth")
 public class OAuthApiController {
 
 	private final OAuthService oauthService;
 
 	@Operation(summary = "소셜로그인 요청 API", description = "호출 시 소셜로그인 페이지로 리다이렉트됨", tags = {"OAuth API"})
 	@ApiResponse(responseCode = "302", description = "리다이렉트 성공")
-	@GetMapping("/oauth/{provider}")
+	@GetMapping("/api/v1/oauth/oauth/{provider}")
 	public ResponseEntity<Void> redirectToOAuthPage(
 		@PathVariable String provider
 	) {
@@ -40,7 +38,7 @@ public class OAuthApiController {
 	}
 
 	@Operation(
-		summary = "소셜로그인 인증처리 API",
+		summary = "소셜로그인 처리 API",
 		description = "OAuth 서버와 통신하며 인증처리, 소셜로그인 요청 API 호출 시 자동 호출됨",
 		tags = {"OAuth API"}
 	)
