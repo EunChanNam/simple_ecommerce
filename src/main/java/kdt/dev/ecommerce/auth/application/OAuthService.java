@@ -1,4 +1,4 @@
-package kdt.dev.ecommerce.auth.applicaiton;
+package kdt.dev.ecommerce.auth.application;
 
 import java.net.URI;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import kdt.dev.ecommerce.auth.applicaiton.dto.AuthTokenResponse;
+import kdt.dev.ecommerce.auth.application.dto.AuthTokenResponse;
 import kdt.dev.ecommerce.auth.domain.AuthTokenManager;
 import kdt.dev.ecommerce.auth.domain.oauth.OAuthConnector;
 import kdt.dev.ecommerce.auth.domain.oauth.model.AuthToken;

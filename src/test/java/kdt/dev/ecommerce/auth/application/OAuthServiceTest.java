@@ -1,4 +1,4 @@
-package kdt.dev.ecommerce.auth.applicaiton;
+package kdt.dev.ecommerce.auth.application;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
