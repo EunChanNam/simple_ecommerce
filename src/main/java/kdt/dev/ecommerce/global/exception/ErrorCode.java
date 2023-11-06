@@ -1,10 +1,12 @@
 package kdt.dev.ecommerce.global.exception;
 
+import org.springframework.http.HttpStatus;
+
 public interface ErrorCode {
 
-	String code();
+	String getCode();
 
-	String getStatus();
+	HttpStatus getStatus();
 
 	String getMessage();
 }
