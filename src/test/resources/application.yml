@@ -30,7 +30,6 @@ spring:
       scope: scope
 
 jwt:
-  secret:
-    key: abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc
+  secret-key: abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc
   access-token-validity: 1000000000
   refresh-token-validity: 1000000000

@@ -110,6 +110,7 @@ class OAuthConnectorTest {
 			GoogleUserInfo userInfo = new GoogleUserInfo("sub", "name", "email");
 			given(restTemplate.exchange(anyString(), any(), any(), eq(GoogleUserInfo.class)))
 				.willReturn(new ResponseEntity<>(userInfo, HttpStatus.OK));
+
 			//when
 			OAuthUserInfo actual = oAuthConnector.fetchUserInfo("token");
 
