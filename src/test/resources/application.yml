@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  oauth:
+    google:
+      authorization-endpoint: authorization-endpoint
+      token-endpoint: token-endpoint
+      userinfo-endpoint: userinfo-endpoint
+      client-id: client-id
+      client-secret: client-secret
+      redirect-uri: redirect-uri
+      scope: scope
+
+jwt:
+  secret:
+    key: abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc
+  access-token-validity: 1000000000
+  refresh-token-validity: 1000000000
