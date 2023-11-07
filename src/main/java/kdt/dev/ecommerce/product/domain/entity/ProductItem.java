@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import kdt.dev.ecommerce.global.entity.BaseEntity;
 import kdt.dev.ecommerce.item.domain.entity.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Table(name = "product_item")
-public class ProductItem {
+public class ProductItem extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
