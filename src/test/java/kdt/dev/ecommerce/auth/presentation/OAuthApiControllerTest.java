@@ -25,7 +25,7 @@ import kdt.dev.ecommerce.common.support.ApiTestSupport;
 @DisplayName("[OAuth API 테스트]")
 class OAuthApiControllerTest extends ApiTestSupport {
 
-	private static final String REDIRECT_TO_OAUTH_PAGE_URL = "/api/oauth/%s";
+	private static final String REDIRECT_TO_OAUTH_PAGE_URL = "/api/v1/oauth/%s";
 	private static final String LOGIN_URL = "/login/oauth2/code/%s";
 
 	@Autowired
