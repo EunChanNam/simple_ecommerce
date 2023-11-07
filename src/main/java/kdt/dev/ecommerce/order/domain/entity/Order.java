@@ -14,18 +14,23 @@ import jakarta.persistence.Table;
 import kdt.dev.ecommerce.global.entity.BaseEntity;
 import kdt.dev.ecommerce.item.domain.entity.ItemDetail;
 import kdt.dev.ecommerce.product.domain.entity.Product;
+import kdt.dev.ecommerce.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "order")
+@Table(name = "orders")
 public class Order extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
+
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "user_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
+	private User user;
 
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "product_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
@@ -40,11 +45,13 @@ public class Order extends BaseEntity {
 	private int price;
 
 	private Order(
+		User user,
 		Product product,
 		ItemDetail itemDetail,
 		int quantity
 	) {
 		updateItemStock(itemDetail, quantity);
+		this.user = user;
 		this.product = product;
 		this.itemDetail = itemDetail;
 		this.quantity = quantity;
@@ -68,11 +75,13 @@ public class Order extends BaseEntity {
 
 	//==Factory method==//
 	public static Order of(
+		User user,
 		Product product,
 		ItemDetail itemDetail,
 		int quantity
 	) {
 		return new Order(
+			user,
 			product,
 			itemDetail,
 			quantity
