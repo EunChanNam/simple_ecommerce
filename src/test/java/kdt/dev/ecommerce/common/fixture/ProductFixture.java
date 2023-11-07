@@ -15,4 +15,12 @@ public final class ProductFixture {
 			new Promotion("promotion", discountAmount)
 		);
 	}
+
+	public static Product getProduct() {
+		return new Product(
+			"product",
+			"nike",
+			new Promotion("promotion", 10)
+		);
+	}
 }

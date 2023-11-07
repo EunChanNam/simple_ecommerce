@@ -19,4 +19,15 @@ public final class ItemDetailFixture {
 			stock
 		));
 	}
+
+	public static ItemDetail getItemDetail() {
+		return new ItemDetail(new ItemDetailDto(
+			new Item("item", 1000),
+			"red",
+			"XL",
+			null,
+			100,
+			1000
+		));
+	}
 }
