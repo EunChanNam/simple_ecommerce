@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "product")
+@Table(name = "promotion")
 public class Promotion extends BaseEntity {
 
 	@Id
