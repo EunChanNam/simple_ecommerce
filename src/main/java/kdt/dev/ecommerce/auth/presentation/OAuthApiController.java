@@ -26,7 +26,7 @@ public class OAuthApiController {
 
 	@Operation(summary = "소셜로그인 요청 API", description = "호출 시 소셜로그인 페이지로 리다이렉트됨", tags = {"OAuth API"})
 	@ApiResponse(responseCode = "302", description = "리다이렉트 성공")
-	@GetMapping("/api/v1/oauth/oauth/{provider}")
+	@GetMapping("/api/v1/oauth/{provider}")
 	public ResponseEntity<Void> redirectToOAuthPage(
 		@PathVariable String provider
 	) {
