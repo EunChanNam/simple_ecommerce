@@ -1,4 +1,4 @@
-package kdt.dev.ecommerce.item.domain.entity;
+package kdt.dev.ecommerce.product.domain.entity;
 
 import static jakarta.persistence.ConstraintMode.*;
 import static jakarta.persistence.FetchType.*;
@@ -17,24 +17,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "option")
-public class Option {
+@Table(name = "product")
+public class Product {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
 
+	private String productName;
+
+	private String brand;
+
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "item_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
-	private Item item;
-
-	private String color;
-
-	private String size;
-
-	private String customOption;
-
-	private String changeAmount;
-
-	private int stock;
+	@JoinColumn(name = "promotion_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
+	private Promotion promotion;
 }
