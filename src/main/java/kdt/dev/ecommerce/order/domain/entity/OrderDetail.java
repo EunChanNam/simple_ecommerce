@@ -20,8 +20,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "order_product")
-public class OrderProduct extends BaseEntity {
+@Table(name = "order_detail")
+public class OrderDetail extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -41,7 +41,7 @@ public class OrderProduct extends BaseEntity {
 
 	private int quantity;
 
-	public OrderProduct(
+	public OrderDetail(
 		Order order,
 		Product product,
 		Option option,
