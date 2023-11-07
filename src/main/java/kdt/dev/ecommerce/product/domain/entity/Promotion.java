@@ -22,4 +22,12 @@ public class Promotion {
 	private String promotionName;
 
 	private int discountAmount;
+
+	public Promotion(
+		String promotionName,
+		int discountAmount
+	) {
+		this.promotionName = promotionName;
+		this.discountAmount = discountAmount;
+	}
 }

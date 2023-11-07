@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import kdt.dev.ecommerce.item.domain.dto.OptionDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -37,4 +38,13 @@ public class Option {
 	private String changeAmount;
 
 	private int stock;
+
+	public Option(OptionDto optionDto) {
+		this.item = optionDto.item();
+		this.color = optionDto.color();
+		this.size = optionDto.size();
+		this.customOption = optionDto.customOption();
+		this.changeAmount = optionDto.changeAmount();
+		this.stock = optionDto.stock();
+	}
 }

@@ -31,4 +31,14 @@ public class Product {
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "promotion_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
 	private Promotion promotion;
+
+	public Product(
+		String productName,
+		String brand,
+		Promotion promotion
+	) {
+		this.productName = productName;
+		this.brand = brand;
+		this.promotion = promotion;
+	}
 }
