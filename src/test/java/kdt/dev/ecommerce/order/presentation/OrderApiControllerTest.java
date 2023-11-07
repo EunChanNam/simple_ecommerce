@@ -48,7 +48,6 @@ class OrderApiTest extends ApiTestSupport {
 	void order() throws Exception {
 		//given
 		Long userId = userRepository.save(UserFixture.getUser()).getId();
-		setAuthorization(userId);
 
 		//추후에 Promotion, Item Repository 를 만들면 실제 의존성으로 테스트하도록 변경
 		//===================================================================
@@ -70,7 +69,7 @@ class OrderApiTest extends ApiTestSupport {
 		ResultActions actual = mockMvc.perform(
 			MockMvcRequestBuilders
 				.post("/api/v1/orders")
-				.header(AUTHORIZATION, ACCESS_TOKEN)
+				.header(AUTHORIZATION, BEARER + getAccessToken(userId))
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(toJson(orderRequest))
 		);
