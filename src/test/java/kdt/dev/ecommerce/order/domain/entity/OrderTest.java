@@ -8,17 +8,16 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import kdt.dev.ecommerce.common.fixture.ItemDetailFixture;
-import kdt.dev.ecommerce.common.fixture.OrderFixture;
 import kdt.dev.ecommerce.common.fixture.ProductFixture;
 import kdt.dev.ecommerce.item.domain.entity.ItemDetail;
 import kdt.dev.ecommerce.item.exception.StockNotEnoughException;
 import kdt.dev.ecommerce.product.domain.entity.Product;
 
-@DisplayName("[OrderDetail 테스트]")
-class OrderDetailTest {
+@DisplayName("[Order 테스트]")
+class OrderTest {
 
 	@Nested
-	@DisplayName("[OrderDetail 을 생성한다]")
+	@DisplayName("[Order 를 생성한다]")
 	class of {
 
 		@Test
@@ -33,11 +32,9 @@ class OrderDetailTest {
 
 			Product product = ProductFixture.getProduct(discountAmount);
 			ItemDetail itemDetail = ItemDetailFixture.getItemDetail(itemPrice, changeAmount, stock);
-			Order order = OrderFixture.getOrder(100000);
 
 			//when
-			OrderDetail actual = OrderDetail.of(
-				order,
+			Order actual = Order.of(
 				product,
 				itemDetail,
 				quantity
@@ -45,6 +42,7 @@ class OrderDetailTest {
 
 			//then
 			assertThat(actual.getPrice()).isEqualTo(100000);
+			assertThat(itemDetail.getStock()).isEqualTo(90);
 		}
 
 		@Test
@@ -59,12 +57,10 @@ class OrderDetailTest {
 
 			Product product = ProductFixture.getProduct(discountAmount);
 			ItemDetail itemDetail = ItemDetailFixture.getItemDetail(itemPrice, changeAmount, stock);
-			Order order = OrderFixture.getOrder(100000);
 
 			//when
 			ThrowingCallable when = () ->
-				OrderDetail.of(
-					order,
+				Order.of(
 					product,
 					itemDetail,
 					quantity

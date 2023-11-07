@@ -12,14 +12,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import kdt.dev.ecommerce.global.entity.BaseEntity;
-import kdt.dev.ecommerce.user.domain.User;
+import kdt.dev.ecommerce.item.domain.entity.ItemDetail;
+import kdt.dev.ecommerce.product.domain.entity.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "orders")
+@Table(name = "order")
 public class Order extends BaseEntity {
 
 	@Id
@@ -27,13 +28,54 @@ public class Order extends BaseEntity {
 	private Long id;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "user_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
-	private User user;
+	@JoinColumn(name = "product_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
+	private Product product;
 
-	private int orderPrice;
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "item_detail_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
+	private ItemDetail itemDetail;
 
-	public Order(User user, int orderPrice) {
-		this.user = user;
-		this.orderPrice = orderPrice;
+	private int quantity;
+
+	private int price;
+
+	private Order(
+		Product product,
+		ItemDetail itemDetail,
+		int quantity
+	) {
+		updateItemStock(itemDetail, quantity);
+		this.product = product;
+		this.itemDetail = itemDetail;
+		this.quantity = quantity;
+		this.price = calculatePrice(product, itemDetail, quantity);
+	}
+
+	private void updateItemStock(ItemDetail itemDetail, int quantity) {
+		itemDetail.updateStock(quantity);
+	}
+
+	private int calculatePrice(
+		Product product,
+		ItemDetail itemDetail,
+		int quantity
+	) {
+		int totalPrice = itemDetail.getItemPrice() * quantity;
+		int discountedPrice = product.getDiscountedPrice(totalPrice);
+		int additionalPrice = itemDetail.getChangeAmount() * quantity;
+		return discountedPrice + additionalPrice;
+	}
+
+	//==Factory method==//
+	public static Order of(
+		Product product,
+		ItemDetail itemDetail,
+		int quantity
+	) {
+		return new Order(
+			product,
+			itemDetail,
+			quantity
+		);
 	}
 }
