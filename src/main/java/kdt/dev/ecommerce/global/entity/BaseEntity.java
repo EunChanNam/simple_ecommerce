@@ -6,7 +6,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -16,11 +15,9 @@ import lombok.Getter;
 @MappedSuperclass
 public class BaseEntity {
 
-	@Column(nullable = false, insertable = false, updatable = false)
 	@CreatedDate
 	protected LocalDateTime createdDate;
 
-	@Column(nullable = false, insertable = false)
 	@LastModifiedDate
 	private LocalDateTime updatedDate;
 }

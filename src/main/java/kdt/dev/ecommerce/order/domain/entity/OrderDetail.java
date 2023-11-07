@@ -1,4 +1,4 @@
-package kdt.dev.ecommerce.product.domain.entity;
+package kdt.dev.ecommerce.order.domain.entity;
 
 import static jakarta.persistence.ConstraintMode.*;
 import static jakarta.persistence.FetchType.*;
@@ -12,30 +12,44 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import kdt.dev.ecommerce.global.entity.BaseEntity;
-import kdt.dev.ecommerce.item.domain.entity.Item;
+import kdt.dev.ecommerce.item.domain.entity.Option;
+import kdt.dev.ecommerce.product.domain.entity.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "product_item")
-public class ProductItem extends BaseEntity {
+@Table(name = "order_detail")
+public class OrderDetail extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
 
 	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "order_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
+	private Order order;
+
+	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "product_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
 	private Product product;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "item_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
-	private Item item;
+	@JoinColumn(name = "option_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
+	private Option option;
 
-	public ProductItem(Product product, Item item) {
+	private int quantity;
+
+	public OrderDetail(
+		Order order,
+		Product product,
+		Option option,
+		int quantity
+	) {
+		this.order = order;
 		this.product = product;
-		this.item = item;
+		this.option = option;
+		this.quantity = quantity;
 	}
 }

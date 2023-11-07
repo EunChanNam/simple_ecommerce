@@ -6,14 +6,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import kdt.dev.ecommerce.global.entity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "product")
-public class Promotion {
+@Table(name = "promotion")
+public class Promotion extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
