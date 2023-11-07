@@ -9,20 +9,18 @@ import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import kdt.dev.ecommerce.common.fixture.ProductFixture;
+import kdt.dev.ecommerce.common.support.MockTestSupport;
 import kdt.dev.ecommerce.global.exception.CommerceException;
 import kdt.dev.ecommerce.product.domain.ProductRepository;
 import kdt.dev.ecommerce.product.domain.entity.Product;
 import kdt.dev.ecommerce.product.exception.ProductErrorCode;
 
 @DisplayName("[ProductFindService 테스트]")
-@ExtendWith(MockitoExtension.class)
-class ProductFindServiceTest {
+class ProductFindServiceTest extends MockTestSupport {
 
 	@InjectMocks
 	private ProductFindService productFindService;
@@ -30,7 +28,7 @@ class ProductFindServiceTest {
 	private ProductRepository productRepository;
 
 	@Nested
-	@DisplayName("[Promotion 정보와 함께 Product 를 조회한다]")
+	@DisplayName("[ID 로 Promotion 정보와 함께 Product 를 조회한다]")
 	class getProductWithPromotionById {
 
 		@Test
