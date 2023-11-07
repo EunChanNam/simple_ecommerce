@@ -12,7 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import kdt.dev.ecommerce.global.entity.BaseEntity;
-import kdt.dev.ecommerce.item.domain.entity.Option;
+import kdt.dev.ecommerce.item.domain.entity.ItemDetail;
 import kdt.dev.ecommerce.product.domain.entity.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,20 +36,54 @@ public class OrderDetail extends BaseEntity {
 	private Product product;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "option_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
-	private Option option;
+	@JoinColumn(name = "item_detail_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
+	private ItemDetail itemDetail;
 
 	private int quantity;
 
-	public OrderDetail(
+	private int price;
+
+	private OrderDetail(
 		Order order,
 		Product product,
-		Option option,
+		ItemDetail itemDetail,
 		int quantity
 	) {
+		updateItemStock(itemDetail, quantity);
 		this.order = order;
 		this.product = product;
-		this.option = option;
+		this.itemDetail = itemDetail;
 		this.quantity = quantity;
+		this.price = calculatePrice(product, itemDetail, quantity);
+	}
+
+	private void updateItemStock(ItemDetail itemDetail, int quantity) {
+		itemDetail.updateStock(quantity);
+	}
+
+	private int calculatePrice(
+		Product product,
+		ItemDetail itemDetail,
+		int quantity
+	) {
+		int totalPrice = itemDetail.getItemPrice() * quantity;
+		int discountedPrice = product.getDiscountedPrice(totalPrice);
+		int additionalPrice = itemDetail.getChangeAmount() * quantity;
+		return discountedPrice + additionalPrice;
+	}
+
+	//==Factory method==//
+	public static OrderDetail of(
+		Order order,
+		Product product,
+		ItemDetail itemDetail,
+		int quantity
+	) {
+		return new OrderDetail(
+			order,
+			product,
+			itemDetail,
+			quantity
+		);
 	}
 }

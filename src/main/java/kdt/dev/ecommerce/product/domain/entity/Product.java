@@ -42,4 +42,8 @@ public class Product extends BaseEntity {
 		this.brand = brand;
 		this.promotion = promotion;
 	}
+
+	public int getDiscountedPrice(int price) {
+		return promotion.discount(price);
+	}
 }
