@@ -1,1 +1,34 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PW}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
 
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+    open-in-view: false
+
+  oauth:
+    google:
+      authorization-endpoint: https://accounts.google.com/o/oauth2/v2/auth
+      token-endpoint: https://oauth2.googleapis.com/token
+      userinfo-endpoint: https://openidconnect.googleapis.com/v1/userinfo
+      client-id: 1053658400701-ppctge33gphkrf9hg33gv2cg2a6sgkjj.apps.googleusercontent.com
+      client-secret: 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
+      redirect-uri: http://localhost:8080/login/oauth2/code/google
+      scope: profile, email
+
+#JWT key
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  access-token-validity: ${ACCESS_TOKEN_VALIDITY}
+  refresh-token-validity: ${REFRESH_TOKEN_VALIDITY}

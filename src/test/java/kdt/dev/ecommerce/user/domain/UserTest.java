@@ -14,15 +14,13 @@ class UserTest {
 	void of() {
 		//given
 		String oauthId = "oauthId";
-		String name = "name";
 		String nickname = "nickname";
 
 		//when
-		User actual = User.of(oauthId, name, nickname);
+		User actual = User.of(oauthId, nickname);
 
 		//then
 		assertAll(
-			() -> assertThat(actual.getName()).isEqualTo(name),
 			() -> assertThat(actual.getOauthId()).isEqualTo(oauthId),
 			() -> assertThat(actual.getNickname()).isEqualTo(nickname)
 		);
