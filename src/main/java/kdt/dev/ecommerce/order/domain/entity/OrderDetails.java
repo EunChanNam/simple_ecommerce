@@ -10,9 +10,11 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.OneToMany;
 import kdt.dev.ecommerce.item.domain.entity.ItemDetail;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Embeddable
+@Getter
 @NoArgsConstructor
 public class OrderDetails {
 
