@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import kdt.dev.ecommerce.item.domain.ItemDetailRepository;
 import kdt.dev.ecommerce.item.domain.entity.ItemDetail;
@@ -17,4 +18,11 @@ public interface ItemDetailJpaRepository extends ItemDetailRepository, JpaReposi
 
 	@EntityGraph(attributePaths = "item")
 	List<ItemDetail> findWithByIdIn(List<Long> ids);
+
+	@Query("select ItemDetail from ItemDetail "
+		   + "join fetch Item i "
+		   + "join ProductItem pi on i.id = pi.item.id "
+		   + "join Product p on pi.product.id = p.id "
+		   + "where p.id = :productId")
+	List<ItemDetail> findByProductId(Long productId);
 }
