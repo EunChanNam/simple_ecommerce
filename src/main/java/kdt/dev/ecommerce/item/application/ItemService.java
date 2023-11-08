@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ItemDetailService implements GetItemInfoUseCase {
+public class ItemService implements GetItemInfoUseCase {
 
 	private final ItemDetailRepository itemDetailRepository;
 

@@ -17,11 +17,11 @@ import kdt.dev.ecommerce.common.support.MockTestSupport;
 import kdt.dev.ecommerce.item.domain.ItemDetailRepository;
 import kdt.dev.ecommerce.item.domain.entity.ItemDetail;
 
-@DisplayName("[ItemDetailService 테스트]")
-class ItemDetailServiceTest extends MockTestSupport {
+@DisplayName("[ItemService 테스트]")
+class ItemServiceTest extends MockTestSupport {
 
 	@InjectMocks
-	private ItemDetailService itemDetailService;
+	private ItemService itemService;
 	@Mock
 	private ItemDetailRepository itemDetailRepository;
 
@@ -38,7 +38,7 @@ class ItemDetailServiceTest extends MockTestSupport {
 			.willReturn(itemDetails);
 
 		//when
-		ItemInfoResponse actual = itemDetailService.getItemInfo(1L);
+		ItemInfoResponse actual = itemService.getItemInfo(1L);
 
 		//then
 		List<ItemInfo> itemInfos = actual.itemInfos();
