@@ -15,7 +15,7 @@ public class Mapper {
 		return new OrderUseCase.OrderCommand(
 			userId,
 			request.productId(),
-			request.itemDetailId(),
+			request.itemDetailIds(),
 			request.quantity()
 		);
 	}

@@ -67,6 +67,6 @@ clean.doLast {
 	file(querydslDir).deleteDir()
 }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
 }

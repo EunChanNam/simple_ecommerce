@@ -65,4 +65,8 @@ public class ItemDetail extends BaseEntity {
 	public int getItemPrice() {
 		return item.getItemPrice();
 	}
+
+	public String getItemName() {
+		return item.getItemName();
+	}
 }
