@@ -17,4 +17,8 @@ public final class UserFixture {
 		ReflectionTestUtils.setField(user, "id", id);
 		return user;
 	}
+
+	public static User getUser() {
+		return User.of(OAUTH_ID, NICKNAME);
+	}
 }

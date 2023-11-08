@@ -12,15 +12,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import kdt.dev.ecommerce.global.entity.BaseEntity;
-import kdt.dev.ecommerce.item.domain.dto.OptionDto;
+import kdt.dev.ecommerce.item.domain.dto.ItemDetailDto;
+import kdt.dev.ecommerce.item.exception.StockNotEnoughException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "options")
-public class Option extends BaseEntity {
+@Table(name = "item_detail")
+public class ItemDetail extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -36,16 +37,32 @@ public class Option extends BaseEntity {
 
 	private String customOption;
 
-	private String changeAmount;
+	private int changeAmount;
 
 	private int stock;
 
-	public Option(OptionDto optionDto) {
-		this.item = optionDto.item();
-		this.color = optionDto.color();
-		this.size = optionDto.size();
-		this.customOption = optionDto.customOption();
-		this.changeAmount = optionDto.changeAmount();
-		this.stock = optionDto.stock();
+	public ItemDetail(ItemDetailDto itemDetailDto) {
+		this.item = itemDetailDto.item();
+		this.color = itemDetailDto.color();
+		this.size = itemDetailDto.size();
+		this.customOption = itemDetailDto.customOption();
+		this.changeAmount = itemDetailDto.changeAmount();
+		this.stock = itemDetailDto.stock();
+	}
+
+	public void updateStock(int orderQuantity) {
+		if (stock < orderQuantity) {
+			throw new StockNotEnoughException(
+				item.getItemName(),
+				color,
+				size,
+				customOption
+			);
+		}
+		this.stock -= orderQuantity;
+	}
+
+	public int getItemPrice() {
+		return item.getItemPrice();
 	}
 }

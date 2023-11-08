@@ -12,23 +12,32 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import kdt.dev.ecommerce.auth.application.OAuthService;
 import kdt.dev.ecommerce.auth.application.dto.OAuthLoginRequest;
 import lombok.RequiredArgsConstructor;
 
+@Tag(name = "OAuth API")
 @RestController
 @RequiredArgsConstructor
 public class OAuthApiController {
 
 	private final OAuthService oauthService;
 
-	@Operation(summary = "소셜로그인 요청 API", description = "호출 시 소셜로그인 페이지로 리다이렉트됨", tags = {"OAuth API"})
+	private HttpHeaders createRedirectHeaders(URI redirectUri) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(redirectUri);
+		return headers;
+	}
+
+	@Operation(summary = "소셜로그인 요청 API", description = "호출 시 소셜로그인 페이지로 리다이렉트됨")
 	@ApiResponse(responseCode = "302", description = "리다이렉트 성공")
 	@GetMapping("/api/v1/oauth/{provider}")
 	public ResponseEntity<Void> redirectToOAuthPage(
-		@PathVariable String provider
+		@Parameter(description = "소셜로그인 타입") @PathVariable String provider
 	) {
 		URI authorizationUri = oauthService.getAuthorizationUri(provider);
 
@@ -39,8 +48,7 @@ public class OAuthApiController {
 
 	@Operation(
 		summary = "소셜로그인 처리 API",
-		description = "OAuth 서버와 통신하며 인증처리, 소셜로그인 요청 API 호출 시 자동 호출됨",
-		tags = {"OAuth API"}
+		description = "OAuth 서버와 통신하며 인증처리, 소셜로그인 요청 API 호출 시 자동 호출됨"
 	)
 	@ApiResponse(
 		responseCode = "302",
@@ -49,7 +57,7 @@ public class OAuthApiController {
 	)
 	@GetMapping("/login/oauth2/code/{provider}")
 	public ResponseEntity<Void> login(
-		@PathVariable String provider,
+		@Parameter(description = "소셜로그인 타입") @PathVariable String provider,
 		@ModelAttribute OAuthLoginRequest request
 	) {
 		URI redirectUri = oauthService.login(provider, request);
@@ -57,11 +65,5 @@ public class OAuthApiController {
 		HttpHeaders headers = createRedirectHeaders(redirectUri);
 
 		return new ResponseEntity<>(headers, FOUND);
-	}
-
-	private HttpHeaders createRedirectHeaders(URI redirectUri) {
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(redirectUri);
-		return headers;
 	}
 }

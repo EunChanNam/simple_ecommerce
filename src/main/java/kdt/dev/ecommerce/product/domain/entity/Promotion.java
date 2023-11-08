@@ -22,13 +22,17 @@ public class Promotion extends BaseEntity {
 
 	private String promotionName;
 
-	private int discountAmount;
+	private double discountAmount;
 
 	public Promotion(
 		String promotionName,
-		int discountAmount
+		double discountAmount
 	) {
 		this.promotionName = promotionName;
 		this.discountAmount = discountAmount;
+	}
+
+	public int discount(int price) {
+		return (int)(price * ((100 - discountAmount) / 100));
 	}
 }
