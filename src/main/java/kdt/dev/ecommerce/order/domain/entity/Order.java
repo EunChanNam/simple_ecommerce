@@ -64,4 +64,12 @@ public class Order extends BaseEntity {
 		int additionalPrice = orderDetails.getAdditionalPrice() * quantity;
 		return discountedPrice + additionalPrice;
 	}
+
+	public String getProductName() {
+		return product.getProductName();
+	}
+
+	public List<OrderDetail> getOrderDetails() {
+		return orderDetails.getOrderDetails();
+	}
 }

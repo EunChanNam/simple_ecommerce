@@ -1,14 +1,14 @@
-package kdt.dev.ecommerce.order.presentation;
-
-import org.springframework.stereotype.Component;
+package kdt.dev.ecommerce.order.presentation.utils;
 
 import kdt.dev.ecommerce.order.application.usecase.OrderUseCase;
 import kdt.dev.ecommerce.order.presentation.dto.OrderRequest;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-@Component
-public class Mapper {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class OrderMapper {
 
-	public OrderUseCase.OrderCommand toOrderCommand(
+	public static OrderUseCase.OrderCommand toOrderCommand(
 		OrderRequest request,
 		Long userId
 	) {
