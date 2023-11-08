@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import kdt.dev.ecommerce.common.fixture.ProductFixture;
-import kdt.dev.ecommerce.product.application.utils.Mapper;
+import kdt.dev.ecommerce.product.application.utils.ProductMapper;
 import kdt.dev.ecommerce.product.domain.ProductRepository;
 import kdt.dev.ecommerce.product.domain.entity.Product;
 
@@ -24,7 +24,7 @@ class ProductServiceTest {
 
 	public ProductServiceTest() {
 		this.productRepository = Mockito.mock(ProductRepository.class);
-		this.productService = new ProductService(new Mapper(), productRepository);
+		this.productService = new ProductService(new ProductMapper(), productRepository);
 	}
 
 	@Test

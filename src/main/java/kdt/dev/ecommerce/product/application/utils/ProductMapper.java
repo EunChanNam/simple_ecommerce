@@ -9,7 +9,7 @@ import kdt.dev.ecommerce.product.application.usecase.GetAllProductsInfoUseCase.P
 import kdt.dev.ecommerce.product.domain.entity.Product;
 
 @Component
-public class Mapper {
+public class ProductMapper {
 
 	public AllProductsInfoResponse toAllProductsInfoResponse(List<Product> products) {
 		List<ProductInfo> productInfos = products.stream()
