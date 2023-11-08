@@ -42,6 +42,8 @@ public class OrderApiController {
 		return ResponseEntity.ok(true);
 	}
 
+	@Operation(summary = "주문 조회 API", description = "주문")
+	@ApiResponse(responseCode = "200", description = "주문 성공", useReturnTypeSchema = true)
 	@GetMapping
 	public ResponseEntity<OrderInfoResponse> queryOrderInfo(
 		@Parameter(hidden = true) @Login LoginInfo loginInfo,
