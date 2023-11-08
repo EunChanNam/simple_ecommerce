@@ -16,6 +16,7 @@ public final class ItemMapper {
 		List<ItemInfo> itemInfos = itemDetails.stream()
 			.map(itemDetail -> {
 				ItemDetailInfo itemDetailInfo = new ItemDetailInfo(
+					itemDetail.getId(),
 					itemDetail.getColor(),
 					itemDetail.getSize(),
 					itemDetail.getCustomOption(),

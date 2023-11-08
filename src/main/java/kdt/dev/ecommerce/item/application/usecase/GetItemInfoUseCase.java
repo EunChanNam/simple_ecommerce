@@ -18,6 +18,7 @@ public interface GetItemInfoUseCase {
 	}
 
 	record ItemDetailInfo(
+		Long itemDetailId,
 		String color,
 		String size,
 		String customOption,
