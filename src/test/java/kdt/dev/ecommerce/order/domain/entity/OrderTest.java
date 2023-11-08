@@ -3,6 +3,8 @@ package kdt.dev.ecommerce.order.domain.entity;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -34,24 +36,23 @@ class OrderTest {
 			int stock = 100;
 
 			User user = UserFixture.getUser();
-			Product product = ProductFixture.getProduct(discountAmount);
+			Product product = ProductFixture.getProduct(discountAmount, itemPrice);
 			ItemDetail itemDetail = ItemDetailFixture.getItemDetail(itemPrice, changeAmount, stock);
 
 			//when
-			Order actual = Order.of(
+			Order actual = new Order(
 				user,
 				product,
-				itemDetail,
-				quantity
+				quantity,
+				List.of(itemDetail)
 			);
 
 			//then
 			assertAll(
-				() -> assertThat(actual.getPrice()).isEqualTo(100000),
+				() -> assertThat(actual.getTotalPrice()).isEqualTo(100000),
 				() -> assertThat(itemDetail.getStock()).isEqualTo(90),
 				() -> assertThat(actual.getUser()).isEqualTo(user),
 				() -> assertThat(actual.getQuantity()).isEqualTo(quantity),
-				() -> assertThat(actual.getItemDetail()).isEqualTo(itemDetail),
 				() -> assertThat(actual.getProduct()).isEqualTo(product)
 			);
 		}
@@ -67,16 +68,16 @@ class OrderTest {
 			int stock = 5;
 
 			User user = UserFixture.getUser();
-			Product product = ProductFixture.getProduct(discountAmount);
+			Product product = ProductFixture.getProduct(discountAmount, itemPrice);
 			ItemDetail itemDetail = ItemDetailFixture.getItemDetail(itemPrice, changeAmount, stock);
 
 			//when
 			ThrowingCallable when = () ->
-				Order.of(
+				new Order(
 					user,
 					product,
-					itemDetail,
-					quantity
+					quantity,
+					List.of(itemDetail)
 				);
 
 			//then

@@ -35,7 +35,7 @@ class ProductFindServiceTest extends MockTestSupport {
 		@DisplayName("[성공적으로 조회한다]")
 		void success() {
 			//given
-			Product product = ProductFixture.getProduct(20);
+			Product product = ProductFixture.getProduct(20, 10000);
 			given(productRepository.findWithPromotionById(1L))
 				.willReturn(Optional.of(product));
 

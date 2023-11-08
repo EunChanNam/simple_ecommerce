@@ -4,6 +4,8 @@ import static kdt.dev.ecommerce.common.fixture.AuthFixture.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +53,7 @@ class OrderApiTest extends ApiTestSupport {
 
 		//추후에 Promotion, Item Repository 를 만들면 실제 의존성으로 테스트하도록 변경
 		//===================================================================
-		Product product = ProductFixture.getProduct(10);
+		Product product = ProductFixture.getProduct(10, 20000);
 		setId(product);
 		given(productFindService.getProductWithPromotionById(1L))
 			.willReturn(product);
@@ -63,7 +65,7 @@ class OrderApiTest extends ApiTestSupport {
 			.willReturn(itemDetail);
 		//===================================================================
 
-		OrderRequest orderRequest = new OrderRequest(1L, 1L, 10);
+		OrderRequest orderRequest = new OrderRequest(1L, List.of(1L), 10);
 
 		//when
 		ResultActions actual = mockMvc.perform(

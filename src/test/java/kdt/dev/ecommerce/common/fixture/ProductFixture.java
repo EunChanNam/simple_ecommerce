@@ -8,11 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ProductFixture {
 
-	public static Product getProduct(int discountAmount) {
+	public static Product getProduct(int discountAmount, int originPrice) {
 		return new Product(
 			"product",
 			"nike",
-			new Promotion("promotion", discountAmount)
+			new Promotion("promotion", discountAmount),
+			originPrice
 		);
 	}
 
@@ -20,7 +21,8 @@ public final class ProductFixture {
 		return new Product(
 			"product",
 			"nike",
-			new Promotion("promotion", 10)
+			new Promotion("promotion", 10),
+			100000
 		);
 	}
 }

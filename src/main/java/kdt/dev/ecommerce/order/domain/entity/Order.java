@@ -4,6 +4,9 @@ import static jakarta.persistence.ConstraintMode.*;
 import static jakarta.persistence.FetchType.*;
 import static jakarta.persistence.GenerationType.*;
 
+import java.util.List;
+
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
@@ -36,55 +39,29 @@ public class Order extends BaseEntity {
 	@JoinColumn(name = "product_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
 	private Product product;
 
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "item_detail_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
-	private ItemDetail itemDetail;
-
 	private int quantity;
 
-	private int price;
+	private int totalPrice;
 
-	private Order(
+	@Embedded
+	private OrderDetails orderDetails;
+
+	public Order(
 		User user,
 		Product product,
-		ItemDetail itemDetail,
-		int quantity
+		int quantity,
+		List<ItemDetail> itemDetails
 	) {
-		updateItemStock(itemDetail, quantity);
 		this.user = user;
 		this.product = product;
-		this.itemDetail = itemDetail;
 		this.quantity = quantity;
-		this.price = calculatePrice(product, itemDetail, quantity);
+		this.orderDetails = new OrderDetails(this, itemDetails, quantity);
+		this.totalPrice = calculatePrice();
 	}
 
-	private void updateItemStock(ItemDetail itemDetail, int quantity) {
-		itemDetail.updateStock(quantity);
-	}
-
-	private int calculatePrice(
-		Product product,
-		ItemDetail itemDetail,
-		int quantity
-	) {
-		int totalPrice = itemDetail.getItemPrice() * quantity;
-		int discountedPrice = product.getDiscountedPrice(totalPrice);
-		int additionalPrice = itemDetail.getChangeAmount() * quantity;
+	private int calculatePrice() {
+		int discountedPrice = product.getDiscountedPrice() * quantity;
+		int additionalPrice = orderDetails.getAdditionalPrice() * quantity;
 		return discountedPrice + additionalPrice;
-	}
-
-	//==Factory method==//
-	public static Order of(
-		User user,
-		Product product,
-		ItemDetail itemDetail,
-		int quantity
-	) {
-		return new Order(
-			user,
-			product,
-			itemDetail,
-			quantity
-		);
 	}
 }

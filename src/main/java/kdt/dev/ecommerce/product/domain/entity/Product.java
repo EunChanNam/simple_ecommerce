@@ -29,6 +29,8 @@ public class Product extends BaseEntity {
 
 	private String brand;
 
+	private int originPrice;
+
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "promotion_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
 	private Promotion promotion;
@@ -36,14 +38,20 @@ public class Product extends BaseEntity {
 	public Product(
 		String productName,
 		String brand,
-		Promotion promotion
+		Promotion promotion,
+		int originPrice
 	) {
 		this.productName = productName;
 		this.brand = brand;
 		this.promotion = promotion;
+		this.originPrice = originPrice;
 	}
 
-	public int getDiscountedPrice(int price) {
-		return promotion.discount(price);
+	public int getDiscountedPrice() {
+		return promotion.discount(originPrice);
+	}
+
+	public double getDiscountAmount() {
+		return promotion.getDiscountAmount();
 	}
 }

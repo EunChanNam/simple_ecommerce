@@ -1,5 +1,7 @@
 package kdt.dev.ecommerce.order.application.usecase;
 
+import java.util.List;
+
 public interface OrderUseCase {
 
 	Long order(OrderCommand command);
@@ -7,7 +9,7 @@ public interface OrderUseCase {
 	record OrderCommand(
 		Long userId,
 		Long productId,
-		Long itemDetailId,
+		List<Long> itemDetailIds,
 		int quantity
 	) {
 	}
