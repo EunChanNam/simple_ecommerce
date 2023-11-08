@@ -1,5 +1,7 @@
 package kdt.dev.ecommerce.common.fixture;
 
+import org.springframework.test.util.ReflectionTestUtils;
+
 import kdt.dev.ecommerce.product.domain.entity.Product;
 import kdt.dev.ecommerce.product.domain.entity.Promotion;
 import lombok.AccessLevel;
@@ -24,5 +26,17 @@ public final class ProductFixture {
 			new Promotion("promotion", 10),
 			100000
 		);
+	}
+
+	public static Product getProduct(Long id) {
+		Product product = new Product(
+			"product",
+			"nike",
+			new Promotion("promotion", 10),
+			100000
+		);
+		ReflectionTestUtils.setField(product, "id", id);
+
+		return product;
 	}
 }
