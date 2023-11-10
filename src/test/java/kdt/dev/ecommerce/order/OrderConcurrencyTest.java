@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import kdt.dev.ecommerce.item.exception.StockNotEnoughException;
 import kdt.dev.ecommerce.order.application.usecase.OrderUseCase;
 import kdt.dev.ecommerce.order.presentation.dto.OrderRequest;
 import kdt.dev.ecommerce.order.presentation.utils.OrderMapper;
@@ -50,7 +51,7 @@ public class OrderConcurrencyTest {
 			service.execute(() -> {
 				try {
 					orderUseCase.order(orderCommand);
-				} catch (Exception e) {
+				} catch (StockNotEnoughException e) {
 					failCount.plus();
 				}
 				latch.countDown();
