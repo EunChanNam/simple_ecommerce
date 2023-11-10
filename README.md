@@ -26,14 +26,7 @@
 <img width="977" alt="image" src="https://github.com/EunChanNam/simple_ecommerce/assets/75837025/3cfa9805-c8c0-4a21-ba62-5768cfcd6602">
 
 ---
-## 기능 🕹️
-### User
-* 소셜로그인 API
-### Product
-* 상품 조회 API
-### Item
-* 상품의 세부 아이템 정보 조회 API
-### Order
-* 주문 API
-* 주문 조회 API
+## API 🕹️
+![image](https://github.com/EunChanNam/simple_ecommerce/assets/75837025/e7f2f95a-92be-4330-b81d-d6c25e312de7)
+
 
