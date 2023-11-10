@@ -5,9 +5,11 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import jakarta.persistence.LockModeType;
 import kdt.dev.ecommerce.item.domain.ItemDetailRepository;
 import kdt.dev.ecommerce.item.domain.entity.ItemDetail;
 
@@ -17,8 +19,8 @@ public interface ItemDetailJpaRepository extends ItemDetailRepository, JpaReposi
 	@EntityGraph(attributePaths = "item")
 	Optional<ItemDetail> findWithItemById(Long id);
 
-	@EntityGraph(attributePaths = "item")
-	List<ItemDetail> findWithByIdIn(List<Long> ids);
+	@Lock(LockModeType.PESSIMISTIC_WRITE)
+	List<ItemDetail> findWithLockByIdIn(List<Long> ids);
 
 	@Query("select itemDetail from ItemDetail itemDetail "
 		   + "join fetch itemDetail.item i "

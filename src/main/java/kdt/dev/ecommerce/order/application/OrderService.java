@@ -33,7 +33,7 @@ public class OrderService implements OrderUseCase, QueryOrderInfoUseCase {
 	public Long order(OrderCommand command) {
 		User user = userFindService.getById(command.userId());
 		Product product = productFindService.getProductWithPromotionById(command.productId());
-		List<ItemDetail> itemDetails = itemDetailRepository.findWithByIdIn(command.itemDetailIds());
+		List<ItemDetail> itemDetails = itemDetailRepository.findWithLockByIdIn(command.itemDetailIds());
 
 		Order order = new Order(
 			user,

@@ -47,7 +47,7 @@ class OrderServiceTest extends MockTestSupport {
 	@DisplayName("[주문을 한다]")
 	void order() {
 		//given
-		given(itemDetailRepository.findWithByIdIn(anyList()))
+		given(itemDetailRepository.findWithLockByIdIn(anyList()))
 			.willReturn(List.of(ItemDetailFixture.getItemDetail()));
 
 		given(productFindService.getProductWithPromotionById(1L))
