@@ -2,26 +2,37 @@
 ### 👚 간단한 e-commerce 도메인 프로젝트 👕
 ---
 ## Goal
-짧은 시간내에 의류에 e-commerce 도메인의 핵심인 상품 주문 API 와 간단히 회원, 상품에 대한 API 를 구현한다.
+* 복잡한 commerce 도메인을 이해하고 여러 복잡한 기능을 구현할 수 있도록 설계한다
+* 특히 상품에 있어서 세트 상품과 각 아이템의 세부 옵션들을 유연하게 다루며 주문에 이들이 녹아들 수 있게 설계한다
+* 짧은 시간내에 의류에 commerce 도메인의 핵심인 상품 주문 API 와 상품에 대한 API 를 구현한다
+* 테스트 코드로 구현한 프로덕트 코드의 신뢰성을 보장한다
 
 ---
-## 세부 도메인
+## 도메인 어그리게이트와 테이블 구성
 ### 1. 회원(User)
+* User
 ### 2. 상품(Product)
+* Product
+* Promotion
+* ProductItem
+### 3. 아이템
+* Item
+* ItemDetail
 ### 3. 주문(Order)
+* Order
+* OrderDetail
+
+## ERD
+<img width="977" alt="image" src="https://github.com/EunChanNam/simple_ecommerce/assets/75837025/3cfa9805-c8c0-4a21-ba62-5768cfcd6602">
 
 ---
-## 기능
+## 기능 🕹️
 ### User
-1. 소셜로그인
-2. 로그아웃
+1. 소셜로그인 API
 ### Product
-1. 상품 조회 (간단한 검색 포함)
-2. 상품 등록 (시간이 되면 추가)
+1. 상품 조회 API
+2. 상품의 세부 아이템 정보 조회 API
 ### Order
-1. 주문하기
-2. 주문 취소하기
+1. 주문 API
+2. 주문 조회 API
 
----
-## 참고 사항
-시간상 비회원 주문에 대해서는 다루지 않을 예정이지만, 비회원 주문기능을 확장하는데 용이하게 설계할 예정입니다!
