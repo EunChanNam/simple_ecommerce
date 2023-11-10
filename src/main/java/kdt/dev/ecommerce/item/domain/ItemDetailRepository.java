@@ -9,7 +9,7 @@ public interface ItemDetailRepository {
 
 	Optional<ItemDetail> findWithItemById(Long id);
 
-	List<ItemDetail> findWithByIdIn(List<Long> ids);
+	List<ItemDetail> findWithLockByIdIn(List<Long> ids);
 
 	List<ItemDetail> findByProductId(Long productId);
 }
