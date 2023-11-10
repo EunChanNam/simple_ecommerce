@@ -8,6 +8,11 @@
 * 테스트 코드로 구현한 프로덕트 코드의 신뢰성을 보장한다
 
 ---
+## 기술 스택 ⚒️
+<img width="687" alt="image" src="https://github.com/EunChanNam/simple_ecommerce/assets/75837025/4ca1942a-d280-41c1-a868-23da6e26b998">
+
+
+---
 ## 도메인 어그리게이트와 테이블 구성
 ### 1. 회원(User)
 * User
@@ -22,11 +27,12 @@
 * Order
 * OrderDetail
 
-## ERD
+## ERD ⚙️
 <img width="977" alt="image" src="https://github.com/EunChanNam/simple_ecommerce/assets/75837025/3cfa9805-c8c0-4a21-ba62-5768cfcd6602">
 
 ---
 ## API 🕹️
 ![image](https://github.com/EunChanNam/simple_ecommerce/assets/75837025/e7f2f95a-92be-4330-b81d-d6c25e312de7)
 
-
+## 테스트 ✅
+<img width="601" alt="image" src="https://github.com/EunChanNam/simple_ecommerce/assets/75837025/3bab4bfa-0d4b-4874-b978-10dcb2196a4d">
