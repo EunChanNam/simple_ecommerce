@@ -26,8 +26,4 @@ public enum OAuthProvider {
 	public boolean isGoogle() {
 		return this.equals(GOOGLE);
 	}
-
-	public boolean isKakao() {
-		return this.equals(KAKAO);
-	}
 }

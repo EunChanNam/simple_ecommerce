@@ -62,10 +62,6 @@ public class ItemDetail extends BaseEntity {
 		this.stock -= orderQuantity;
 	}
 
-	public int getItemPrice() {
-		return item.getItemPrice();
-	}
-
 	public String getItemName() {
 		return item.getItemName();
 	}
